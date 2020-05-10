@@ -1,7 +1,7 @@
 Package: easiernet
 Title: Fits EASIER-et
 Version: 0.0.1
-Authors@R: 
+Authors@R:
     person(given = "Jean",
            family = "Feng",
            role = c("aut", "cre"),
@@ -15,7 +15,7 @@ Imports:
 	dplyr,
 	tensorflow,
 	keras
-Suggests: 
+Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
