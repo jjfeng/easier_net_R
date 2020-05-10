@@ -1,12 +1,12 @@
 Package: easiernet
-Title: Fits EASIER-et
+Title: EASIER-net: Ensemble by Averaging Sparse-Input Hierarchical Networks
 Version: 0.0.1
 Authors@R: 
     person(given = "Jean",
            family = "Feng",
            role = c("aut", "cre"),
            email = "jeanfeng@gmail.com")
-Description: First EASIER-net
+Description: Fits SIER-net and EASIER-net (ensemble of sparse-input hierarchical networks)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
