@@ -37,3 +37,7 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+inst/doc
+
+final_run
+lambda_tuning

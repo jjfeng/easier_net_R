@@ -15,3 +15,7 @@ Imports:
 	dplyr,
 	tensorflow,
 	keras
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

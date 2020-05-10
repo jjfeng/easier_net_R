@@ -1,27 +1,55 @@
-###
-# Runs cross validation over hyperparameter settings.
-###
-source("manifest.R")
-library(easiernet)
+---
+title: "Cross-validation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Cross-validation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(tensorflow)
+library(keras)
+library(tfautograph)
+library(tfdatasets)
+library(reticulate)
+library(purrr)
+library(tfestimators)
+library(tfruns)
+library(R6)
+library(testit)
+library(data.table)
+library(easiernet)
+```
+
+```{r}
 # Select one of the two example settings below
 # Change the data files accordingly
 regression_settings <- list(
-  data_file="data/iris_regression.csv",
+  data_file="iris_regression.csv",
   fit_file="run_easier_net_regression.R",
   loss="eval_mse")
-classification_settings <- list(
-  data_file="data/iris.csv",
-  fit_file="run_easier_net_classification.R",
-  loss="eval_sparse_categorical_crossentropy")
+#classification_settings <- list(
+#  data_file="iris.csv",
+#  fit_file="run_easier_net_classification.R",
+#  loss="eval_sparse_categorical_crossentropy")
 settings <- regression_settings
 
 RUNS_DIR <- "lambda_tuning"
 FINAL_DIR <- "final_run"
-FINAL_MODEL_PATH <- "_output/final_model"
+FINAL_MODEL_PATH <- "final_model"
 
-NUM_NETS = 6
+NUM_NETS = 4
+```
 
+```{r}
 # Tunes the hyperparameters -----------------------------------------------
 # Currently tune hyperparameters locally.
 # For cloud version, follow instructions here:
@@ -34,7 +62,7 @@ runs <- tuning_run(settings$fit_file, runs_dir = RUNS_DIR, flags = list(
   num_hidden_nodes = c(100),
   lambda1 = c(0.001),
   lambda2 = c(0.1,0.01),
-  epochs_adam = c(200),
+  epochs_adam = c(20),
   epochs_prox = c(10),
   validation_split = c(0.2),
   data_seed = c(2),
@@ -46,7 +74,9 @@ runs <- tuning_run(settings$fit_file, runs_dir = RUNS_DIR, flags = list(
 ordered_runs <- runs[order(runs[[settings$loss]], decreasing = FALSE),]
 print(ordered_runs)
 best_run <- ordered_runs[1,]
+```
 
+```{r}
 # Do final fit --------------------------------------------------------------
 final_train <- training_run(settings$fit_file, run_dir = FINAL_DIR, flags = list(
   data_path = settings$data_file,
@@ -65,3 +95,4 @@ final_train <- training_run(settings$fit_file, run_dir = FINAL_DIR, flags = list
 
 # Load the final model---------------------------------------------------------
 reloaded_model <- load_model_tf(FINAL_MODEL_PATH)
+```
