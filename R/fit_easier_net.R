@@ -21,7 +21,9 @@ easier_net <- function(sier_net_list) {
 }
 
 #' Fits an ensemble by averaging sparse-input hierarchical networks
-#' Currently does this sequentially, no parallelism
+#' 
+#' Constructs an ensemble by fitting sparse-input hierarchical networks independently.
+#' Currently, this is done sequentially.
 #'
 #' @param x_train matrix with rows as observations, columns as covariates
 #' @param y_train the observed responses for each observation, should be the number of the class (0-indexed)

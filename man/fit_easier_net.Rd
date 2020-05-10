@@ -2,8 +2,7 @@
 % Please edit documentation in R/fit_easier_net.R
 \name{fit_easier_net}
 \alias{fit_easier_net}
-\title{Fits an ensemble by averaging sparse-input hierarchical networks
-Currently does this sequentially, no parallelism}
+\title{Fits an ensemble by averaging sparse-input hierarchical networks}
 \usage{
 fit_easier_net(
   x_train,
@@ -65,6 +64,6 @@ fit_easier_net(
 A fitted sparse-input hierarchical network (a pytorch object)
 }
 \description{
-Fits an ensemble by averaging sparse-input hierarchical networks
-Currently does this sequentially, no parallelism
+Constructs an ensemble by fitting sparse-input hierarchical networks independently.
+Currently, this is done sequentially.
 }
